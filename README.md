@@ -17,14 +17,14 @@ https://docs.astral.sh/uv/getting-started/installation/
 
 ```bash
 mkdir -p ~/.claude/mcp-servers
-curl -o ~/.claude/mcp-servers/cp932_server.py https://raw.githubusercontent.com/maubrey/claude-mcp-servers/main/cp932_server.py
+curl -o ~/.claude/mcp-servers/cp932_server.py https://raw.githubusercontent.com/MichaelCharles/cp932-tools-mcp-server/main/cp932_server.py
 ```
 
 **PowerShell:**
 
 ```powershell
 New-Item -ItemType Directory -Force -Path ~/.claude/mcp-servers
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/maubrey/claude-mcp-servers/main/cp932_server.py -OutFile ~/.claude/mcp-servers/cp932_server.py
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/MichaelCharles/cp932-tools-mcp-server/main/cp932_server.py -OutFile ~/.claude/mcp-servers/cp932_server.py
 ```
 
 ### 3. Claude Codeにサーバーを登録
