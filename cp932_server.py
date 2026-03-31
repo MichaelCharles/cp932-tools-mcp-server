@@ -46,7 +46,7 @@ def ReadCP932(
 
     Automatically detects encoding and returns the content as UTF-8 text
     with line numbers. Use this instead of the built-in Read tool for
-    files in the UniKyuyo project (.pas, .ini, .dfm, .dpr).
+    files that may be encoded in CP932.
 
     Args:
         file_path: Absolute path to the file to read.
@@ -101,7 +101,7 @@ def EditCP932(
 
     Finds old_string in the decoded text and replaces it with new_string,
     then writes the file back in its original encoding. Use this instead of
-    the built-in Edit tool for files in the UniKyuyo project (.pas, .ini, .dfm, .dpr).
+    the built-in Edit tool for files that may be encoded in CP932.
 
     Args:
         file_path: Absolute path to the file to edit.
@@ -201,7 +201,7 @@ def WriteCP932(
 
     Creates or overwrites a file, encoding the provided UTF-8 text content
     into the specified encoding. Use this instead of the built-in Write tool
-    when creating new files for the UniKyuyo project (.pas, .ini, .dfm, .dpr).
+    when creating new files that need to be encoded in CP932.
 
     Args:
         file_path: Absolute path to the file to write.
@@ -260,7 +260,7 @@ def GrepCP932(
 
     Recursively walks directories, decodes each file from CP932/UTF-8,
     and searches the decoded text. Use this instead of the built-in Grep
-    tool when searching for Japanese text in UniKyuyo source files.
+    tool when searching for Japanese text in CP932-encoded files.
 
     Args:
         pattern: Regex pattern to search for (matched against decoded UTF-8 text).
