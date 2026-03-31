@@ -1,83 +1,59 @@
 # Shift_JIS / CP932 Tools MCP Server
 
-## 日本語
+[English](README.en.md)
 
-CP932（Shift_JIS）またはUTF-8でエンコードされたファイルの読み取り、書き込み、編集、検索ツールを提供するMCPサーバーです。Claude Codeで日本語ソースコードを扱うために設計されています。
+Claude CodeでShift_JIS（CP932）エンコーディングの日本語ファイルを読み書き・編集・検索するためのMCPサーバーです。
 
-### ツール
+## セットアップ
+
+### 1. uvのインストール
+
+`uv`がインストールされていない場合は、以下の手順に従ってください：
+https://docs.astral.sh/uv/getting-started/installation/
+
+### 2. サーバースクリプトのダウンロード
+
+**Bash:**
+
+```bash
+mkdir -p ~/.claude/mcp-servers
+curl -o ~/.claude/mcp-servers/cp932_server.py https://raw.githubusercontent.com/maubrey/claude-mcp-servers/main/cp932_server.py
+```
+
+**PowerShell:**
+
+```powershell
+New-Item -ItemType Directory -Force -Path ~/.claude/mcp-servers
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/maubrey/claude-mcp-servers/main/cp932_server.py -OutFile ~/.claude/mcp-servers/cp932_server.py
+```
+
+### 3. Claude Codeにサーバーを登録
+
+```
+claude mcp add cp932-tools -- uv run ~/.claude/mcp-servers/cp932_server.py
+```
+
+### 4. 確認
+
+```
+claude mcp list
+```
+
+出力に`cp932-tools`が表示されていれば成功です。次回Claude Codeを起動すると、`ReadCP932`、`EditCP932`、`WriteCP932`、`GrepCP932`のツールが使えるようになります。
+
+## アンインストール
+
+```
+claude mcp remove cp932-tools
+```
+
+## ツール
 
 日本語ファイルを操作するための以下のツールを提供します：
 
-- ReadCP932
-- EditCP932
-- WriteCP932
-- GrepCP932
+- **ReadCP932** — CP932またはUTF-8のファイルを自動検出して読み取ります。行オフセットと行数制限のパラメータに対応しています。
+- **EditCP932** — ファイル内のテキストを検索・置換します。元のエンコーディングと改行コードを保持します。CP932に存在しないUnicode文字（全角引用符、emダッシュ、省略記号など）は自動的に置換されます。
+- **WriteCP932** — CP932またはUTF-8エンコーディングでファイルを新規作成または上書きします。
+- **GrepCP932** — ディレクトリを再帰的に検索し、正規表現パターンでファイルを検索します。globフィルタリングやコンテキスト行の表示に対応しています。
 
-各ツールはCP932またはUTF-8エンコーディングのファイルを自動検出し、書き戻し時に元のエンコーディングを保持します。主な用途はWindows上のShift_JIS（CP932）エンコーディングの日本語ソースコードですが、エンコーディングが混在している場合のUTF-8ファイルにも対応しています。
-
-### 必要環境
-
-- Python >= 3.10
-- `mcp` パッケージ
-
-### Claude Codeへのインストール
-
-以下のコマンドでClaude Codeの設定にサーバーを追加します：
-
-```bash
-claude mcp add cp932-tools -- uv run /path/to/cp932_server.py
-```
-
-追加されたことを確認するには：
-
-```bash
-claude mcp list
-```
-
-削除する場合：
-
-```bash
-claude mcp remove cp932-tools
-```
-
----
-
-## English
-
-An MCP server that provides tools for reading, writing, editing, and searching files encoded in CP932 (Shift_JIS) or UTF-8. Designed for working with Japanese-language source code while using Claude Code.
-
-### Tools
-
-Provides the following tools for interacting with Japanese language files:
-
-- ReadCP932
-- EditCP932
-- WriteCP932
-- GrepCP932
-
-Each tool can read, write, edit, or search files in either CP932 or UTF-8 encoding, with automatic detection and while preserving the original encoding when writing back to the files. The primary use case is for working with Japanese source code files on Windows in Shift_JIS (CP932) encoding, but it can also handle UTF-8 files for the case where the user has files with mixed encodings.
-
-### Requirements
-
-- Python >= 3.10
-- `mcp` package
-
-### Installation in Claude Code
-
-Add the server to your Claude Code settings by running:
-
-```bash
-claude mcp add cp932-tools -- uv run /path/to/cp932_server.py
-```
-
-To verify it was added:
-
-```bash
-claude mcp list
-```
-
-To remove it later:
-
-```bash
-claude mcp remove cp932-tools
-```
+各ツールはファイルがCP932かUTF-8かを自動検出し、書き戻し時に元のエンコーディングを保持します。主な用途はWindows上のShift_JIS（CP932）エンコーディングの日本語ソースコードですが、エンコーディングが混在しているプロジェクトのUTF-8ファイルにも対応しています。
